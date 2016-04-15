@@ -210,7 +210,7 @@ if (fire_alertcount > 4){
   }
 }
 
-void beep(unsigned char delayms) { //creating function
+void beep(unsigned int delayms) { //creating function
 analogWrite(buzzerPin, 20); //Setting pin to high
 delay(delayms); //Delaying
 analogWrite(buzzerPin ,0); //Setting pin to LOW
