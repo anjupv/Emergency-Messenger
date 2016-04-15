@@ -20,6 +20,9 @@ int GasPin = A0; //GAS sensor output pin to Arduino analog A0 pin
 int FirePin = A1; //fire sensor output pin to Arduino analog A1 pin
 int buzzerPin = 11; //Define buzzerPin
 
+int fire_threshold = 150;
+int gas_threshold = 150;
+
 int gas_alertcount = 0;
 int fire_alertcount = 0;
 boolean gas_sms_sent = false;
