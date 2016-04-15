@@ -128,11 +128,11 @@ beep(100); //Beep
 
 lcd.clear();
 lcd.setCursor(0, 0);
-lcd.print("All Modules         ");
+lcd.print("Modules Initialized");
 lcd.setCursor(0, 1);
-lcd.print("Initialized, Starting");
+lcd.print("   Starting the");
 lcd.setCursor(0, 2);
-lcd.print("the \"Fire Messenger\" ");
+lcd.print(" \"Fire Messenger\"");
 delay(2000);
 
 }
