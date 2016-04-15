@@ -239,8 +239,8 @@ Serial.println("\nCOMPLETE!\n");
 }
 }
 
-void lcd_clearLine(int num){
-  lcd.setCursor(0, num);
+void lcd_clearLine(int row){
+  lcd.setCursor(0, row);
   lcd.print("                    ");
-  lcd.setCursor(0, num);
+  lcd.setCursor(0, row);
 }
