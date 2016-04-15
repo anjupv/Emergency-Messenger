@@ -13,7 +13,7 @@ int remoteNumberlength=sizeof(remoteNumber)/2;
 
 // char array of the message
 //char txtMsg[]= "";
-char txtMsglocation[]= ", Location : Sahrdaya College Decennial Block, Lab 2.";
+char location[]= ", Location : Sahrdaya College Decennial Block, Lab 2.";
 
 // initialize the sensors
 int GasPin = A0; //GAS sensor output pin to Arduino analog A0 pin
@@ -233,7 +233,7 @@ Serial.println(txtMsg);
 // send the message
 //sms.beginSMS(remoteNumber[remoteNumberindex]);
 //sms.print(txtMsg);
-//sms.print(txtMsglocation);
+//sms.print(location);
 //sms.endSMS();
 Serial.println("\nCOMPLETE!\n");
 }
