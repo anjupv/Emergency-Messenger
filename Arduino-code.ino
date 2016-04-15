@@ -9,7 +9,7 @@ LiquidCrystal lcd(7, 6, 5, 4, 3, 2);   // initialize the library with the number
 GSM gsmAccess; // include a 'true' parameter for debug enabled
 GSM_SMS sms;
 char* remoteNumber[]= {"0123456789", "0123456789"};
-int remoteNumberlength=sizeof(remoteNumber)/2;
+int remoteNumbercount=sizeof(remoteNumber)/2;
 
 // SMS text
 char txtMsg[] = "";
@@ -218,9 +218,9 @@ delay(delayms); //Delaying
 }
 
 void sendSMS(char txtMsg[]){
-for (int remoteNumberindex = 0; remoteNumberindex < remoteNumberlength; remoteNumberindex++) {
+for (int i = 0; i < remoteNumbercount; i++) {
 //Serial.print("Message to mobile number: ");
-Serial.println(remoteNumber[remoteNumberindex]);
+Serial.println(remoteNumber[i]);
 
 // sms text
 //Serial.println("SENDING");
@@ -231,7 +231,7 @@ Serial.println(txtMsg);
 // check if you getting txtMsg in Serial
 // if working then remove the commenting for sms.XXX
 // send the message
-//sms.beginSMS(remoteNumber[remoteNumberindex]);
+//sms.beginSMS(remoteNumber[i]);
 //sms.print(txtMsg);
 //sms.print(location);
 //sms.endSMS();
