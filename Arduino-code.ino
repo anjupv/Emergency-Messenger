@@ -157,7 +157,7 @@ lcd.print(analogRead(FirePin));
 Serial.print(analogRead(FirePin));
 Serial.println();
 
-if (analogRead(GasPin) > 150){gas_alert();}
+if (analogRead(GasPin) > gas_threshold){gas_alert();}
 else {
       if (gas_sms_sent) {
 //        char txtMsg[75]="GAS warning lifted at \"Sahrdaya College Decennial Block, Lab 2.\"";
@@ -166,7 +166,7 @@ else {
        }
       gas_alertcount = 0;
 	  }
-if (analogRead(FirePin) > 150){fire_alert();}
+if (analogRead(FirePin) > fire_threshold){fire_alert();}
 else {
       if (fire_sms_sent) {
 //        char txtMsg[75]="Fire warning lifted at \"Sahrdaya College Decennial Block, Lab 2.\"";
