@@ -7,5 +7,5 @@ http://www.seeedstudio.com/wiki/Grove_-_Gas_Sensor%28MQ2%29
 
 3. Add the twitter function
 
-
+4. write more efficient Buzzer code
  
