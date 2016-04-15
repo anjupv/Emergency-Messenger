@@ -11,9 +11,9 @@ GSM_SMS sms;
 char* remoteNumber[]= {"0123456789", "0123456789"};
 int remoteNumberlength=sizeof(remoteNumber)/2;
 
-// char array of the message
-//char txtMsg[]= "";
-char location[]= ", Location : Sahrdaya College Decennial Block, Lab 2.";
+// SMS text
+char txtMsg[] = "";
+char location[] = ", Location : Sahrdaya College Decennial Block, Lab 2.";
 
 // initialize the sensors
 int GasPin = A0; //GAS sensor output pin to Arduino analog A0 pin
