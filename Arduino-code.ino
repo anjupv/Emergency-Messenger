@@ -170,10 +170,10 @@ lcd.clear();
 lcd.setCursor(0, 0); // (note: line 0 is the first row, since counting begins with 0):
 lcd.print("Gas level     : ");
 lcd.print(gas_value);
-lcd.print(%);
+lcd.print("%"");
 Serial.print("Gas:");
 Serial.print(gas_value);
-Serial.println(%);
+Serial.println("%"");
 
 lcd.setCursor(0, 1);
 lcd.print("Fire detected : ");
