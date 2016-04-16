@@ -1,3 +1,18 @@
+/*
+Version : 0.2
+Date : 2016-04-16
+
+Changelog
+
+2016-04-16	Anju	* Analog read updated to get multiple reading to minimise error.
+			* Changed the pin defin from int to #define, to save some memory.
+			* Maped the gas_value to 0-100, gas_threshold corrected.
+			* 
+
+2016-04-15	Anju	* Initial version
+
+*/
+
 #include <LiquidCrystal.h>
 #include <GSM.h>
 
@@ -16,12 +31,12 @@ char txtMsg[] = "";
 char location[] = ", Location : Sahrdaya College Decennial Block, Lab 2.";
 
 // initialize the sensors
-int GasPin = A0; //GAS sensor output pin to Arduino analog A0 pin
-int FirePin = A1; //fire sensor output pin to Arduino analog A1 pin
-int buzzerPin = 11; //Define buzzerPin
+#define GasPin A0 //GAS sensor output pin to Arduino analog A0 pin
+#define FirePin A1 //fire sensor output pin to Arduino analog A1 pin
+#define buzzerPin 11 //Define buzzerPin
 
+int gas_threshold = 10;
 int fire_threshold = 150;
-int gas_threshold = 150;
 
 int gas_alertcount = 0;
 int fire_alertcount = 0;
@@ -142,34 +157,41 @@ delay(2000);
 
 void loop() {
 
+unsigned int gas_value;
+unsigned int fire_value;
+
+for(int x = 0 ; x < 100 ; x++){gas_value = gas_value + analogRead(GasPin);}
+gas_value = gas_value/100;
+gas_value = map(gas_value, 0, 1023, 0, 100);  
+for(int x = 0 ; x < 100 ; x++){gas_value = gas_value + analogRead(FirePin);}
+fire_value = fire_value/100;
+
 lcd.clear();
 lcd.setCursor(0, 0); // (note: line 0 is the first row, since counting begins with 0):
 lcd.print("Gas Value  : ");
+lcd.print(gas_value);
+lcd.print(%);
 Serial.print("Gas value : ");
-lcd.print(analogRead(GasPin));
-Serial.print(analogRead(GasPin));
-Serial.println();
+Serial.print(gas_value);
+Serial.println(%);
 
 lcd.setCursor(0, 1);
 lcd.print("Fire Value : ");
+lcd.print(fire_value);
 Serial.print("Fire value : ");
-lcd.print(analogRead(FirePin));
-Serial.print(analogRead(FirePin));
-Serial.println();
+Serial.print(fire_value);
 
-if (analogRead(GasPin) > gas_threshold){gas_alert();}
+if (gas_value > gas_threshold){gas_alert();}
 else {
       if (gas_sms_sent) {
-//        char txtMsg[75]="GAS warning lifted at \"Sahrdaya College Decennial Block, Lab 2.\"";
-        sendSMS("GAS warning lifted");
+      	sendSMS("GAS warning lifted");
         gas_sms_sent = false;
-       }
+      }
       gas_alertcount = 0;
 	  }
-if (analogRead(FirePin) > fire_threshold){fire_alert();}
+if (fire_value > fire_threshold){fire_alert();}
 else {
       if (fire_sms_sent) {
-//        char txtMsg[75]="Fire warning lifted at \"Sahrdaya College Decennial Block, Lab 2.\"";
         sendSMS("Fire warning lifted");
         fire_sms_sent = false;
        }
