@@ -27,7 +27,7 @@ char* remoteNumber[]= {"0123456789", "0123456789"};
 int remoteNumbercount=sizeof(remoteNumber)/2;
 
 // SMS text
-char txtMsg[] = "";
+//char txtMsg[] = "";
 char location[] = ", Location : Sahrdaya College Decennial Block, Lab 2.";
 
 // initialize the sensors
@@ -168,35 +168,32 @@ fire_value = fire_value/100;
 
 lcd.clear();
 lcd.setCursor(0, 0); // (note: line 0 is the first row, since counting begins with 0):
-lcd.print("Gas Value  : ");
+lcd.print("Gas level     : ");
 lcd.print(gas_value);
 lcd.print(%);
-Serial.print("Gas value : ");
+Serial.print("Gas:");
 Serial.print(gas_value);
 Serial.println(%);
 
 lcd.setCursor(0, 1);
-lcd.print("Fire Value : ");
-lcd.print(fire_value);
-Serial.print("Fire value : ");
-Serial.print(fire_value);
+lcd.print("Fire detected : ");
+Serial.print("Fire:");
+if (fire_value > fire_threshold){
+	lcd.print("Yes");
+	Serial.print("Yes");
+	fire_alert();
+}
+else {
+	lcd.print("No");
+	if (fire_sms_sent) {sendSMS("Fire warning lifted");fire_sms_sent = false;}
+	fire_alertcount = 0;
+}
 
 if (gas_value > gas_threshold){gas_alert();}
 else {
-      if (gas_sms_sent) {
-      	sendSMS("GAS warning lifted");
-        gas_sms_sent = false;
-      }
+      if (gas_sms_sent) {sendSMS("GAS warning lifted");gas_sms_sent = false;}
       gas_alertcount = 0;
-	  }
-if (fire_value > fire_threshold){fire_alert();}
-else {
-      if (fire_sms_sent) {
-        sendSMS("Fire warning lifted");
-        fire_sms_sent = false;
-       }
-      fire_alertcount = 0;
-	  }
+}
 
 delay(1000); // Print value every 1 sec.
 }
@@ -211,7 +208,6 @@ if (gas_alertcount > 4){
   lcd.setCursor(0, 3);
   lcd.print("   Warning : GAS   ");
   if (!gas_sms_sent){
-//    char txtMsg[75]="Warning : GAS detected at \"Sahrdaya College Decennial Block, Lab 2.\"";
     sendSMS("Warning : GAS detected");
     gas_sms_sent = true;
     }
@@ -228,7 +224,6 @@ if (fire_alertcount > 4){
   lcd.setCursor(0, 3);
   lcd.print("   Warning : FIRE   ");
   if (!fire_sms_sent){
-//    char txtMsg[75]="Warning : Fire detected at \"Sahrdaya College Decennial Block, Lab 2.\"";
     sendSMS("Warning : Fire detected");
     fire_sms_sent = true;
     }
