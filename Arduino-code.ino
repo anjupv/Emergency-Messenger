@@ -173,7 +173,7 @@ gas_value = gas_value/100;
 Serial.print(gas_value);
 gas_value = map(gas_value, 0, 1023, 0, 100);  
 Serial.print(gas_value);
-for(int x = 0 ; x < 100 ; x++){delay(1);gas_value = gas_value + analogRead(FirePin);}
+for(int x = 0 ; x < 100 ; x++){delay(1);fire_value = fire_value + analogRead(FirePin);}
 fire_value = fire_value/100;
 Serial.print(fire_value);
 
