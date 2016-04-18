@@ -211,7 +211,7 @@ if (gas_alertcount > 4){
   Serial.println("\"Warning : Gas detected.\"");
   lcd_clearLine(3);
   lcd.setCursor(0, 3);
-  lcd.print("   Warning : GAS   ");
+  lcd.print("      Warning");
   if (!gas_sms_sent){
     sendSMS("Warning : GAS detected,");
     gas_sms_sent = true;
@@ -228,7 +228,7 @@ if (fire_alertcount > 4){
   Serial.println("\"Warning : fire detected.\"");
   lcd_clearLine(3);
   lcd.setCursor(0, 3);
-  lcd.print("   Warning : FIRE   ");
+  lcd.print("       Warning");
   if (!fire_sms_sent){
     sendSMS("Warning : Fire detected");
     fire_sms_sent = true;
