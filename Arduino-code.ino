@@ -106,9 +106,10 @@ delay(500);
 lcd.setCursor(0, 3);
 lcd.print("Buzzer      : ");
 //Serial.print("Buzzer      : ");
-pinMode(buzzerPin, OUTPUT); //Set buzzerPin as output
-beep(100); //Beep
+//pinMode(buzzerPin, OUTPUT); //Set buzzerPin as output
+analogWrite(buzzerPin, 100); //Beep
 delay(500);
+analogWrite(buzzerPin, 0); //Beep
 lcd.print("OK");
 //Serial.println("OK");
 delay(1000);
@@ -142,7 +143,7 @@ lcd_clearLine(1);
 lcd.setCursor(0, 1);
 lcd.print("GSM         : OK");
 delay(1000);
-beep(100); //Beep
+//beep(100); //Beep
 
 lcd.clear();
 lcd.setCursor(0, 0);
@@ -151,7 +152,14 @@ lcd.setCursor(0, 1);
 lcd.print("   Starting the");
 lcd.setCursor(0, 2);
 lcd.print(" \"Fire Messenger\"");
-delay(2000);
+analogWrite(buzzerPin, 100); //Beep
+delay(300);
+analogWrite(buzzerPin, 0); //Beep
+delay(300);
+analogWrite(buzzerPin, 100); //Beep
+delay(300);
+analogWrite(buzzerPin, 0); //Beep
+delay(1100);
 
 }
 
@@ -160,11 +168,14 @@ void loop() {
 unsigned int gas_value;
 unsigned int fire_value;
 
-for(int x = 0 ; x < 100 ; x++){gas_value = gas_value + analogRead(GasPin);}
+for(int x = 0 ; x < 100 ; x++){delay(1);gas_value = gas_value + analogRead(GasPin);}
 gas_value = gas_value/100;
+Serial.print(gas_value);
 gas_value = map(gas_value, 0, 1023, 0, 100);  
-for(int x = 0 ; x < 100 ; x++){gas_value = gas_value + analogRead(FirePin);}
+Serial.print(gas_value);
+for(int x = 0 ; x < 100 ; x++){delay(1);gas_value = gas_value + analogRead(FirePin);}
 fire_value = fire_value/100;
+Serial.print(fire_value);
 
 lcd.clear();
 lcd.setCursor(0, 0); // (note: line 0 is the first row, since counting begins with 0):
@@ -187,12 +198,14 @@ else {
 	lcd.print("No");
 	if (fire_sms_sent) {sendSMS("Fire warning lifted");fire_sms_sent = false;}
 	fire_alertcount = 0;
+	analogWrite(buzzerPin ,0); //Setting Buzzer off
 }
 
 if (gas_value > gas_threshold){gas_alert();}
 else {
       if (gas_sms_sent) {sendSMS("GAS warning lifted");gas_sms_sent = false;}
       gas_alertcount = 0;
+      analogWrite(buzzerPin ,0); //Setting Buzzer off
 }
 
 delay(1000); // Print value every 1 sec.
@@ -201,8 +214,8 @@ delay(1000); // Print value every 1 sec.
 void gas_alert(){
 gas_alertcount++;
 if (gas_alertcount > 4){
-   beep(1000); 
-   //Beep every 500 milliseconds
+//   beep(1000);
+  analogWrite(buzzerPin, 100); //Beep
   Serial.println("\"Warning : Gas detected.\"");
   lcd_clearLine(3);
   lcd.setCursor(0, 3);
@@ -217,7 +230,8 @@ if (gas_alertcount > 4){
 void fire_alert(){
 fire_alertcount++;
 if (fire_alertcount > 4){
-   beep(1000); 
+//   beep(1000); 
+  analogWrite(buzzerPin, 100); //Beep
    //Beep every 500 milliseconds
   //Serial.println("\"Warning : fire detected.\"");
   lcd_clearLine(3);
